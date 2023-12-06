@@ -20,7 +20,8 @@ struct ToDoListView: View {
                 TextField("New task", text: $newItemString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(12)
-                
+                    .colorInvert()
+                    
                 Button("Add to the list") {
                     guard !newItemString.isEmpty else {
                         return
@@ -33,22 +34,21 @@ struct ToDoListView: View {
                     newItemString = ""
                 }
                 
-               
-                    List {
-                        ForEach(items) { item in
-                            Text(item.title)
-                        }
-                        .onDelete { indexSet in
-                            indexSet.forEach({ index in
-                                context.delete(items[index])
-                            })
-                        }
+                .buttonStyle(BorderedButtonStyle())
+                .padding(.bottom, 12)
+                List {
+                    ForEach(items) { item in
+                        Text(item.title)
                     }
-            
-                    .overlay {
-                        if items.isEmpty {
-                            Text("👏🏿 You have nothing to do!🎉")
-                        
+                    .onDelete { indexSet in
+                        indexSet.forEach({ index in
+                            context.delete(items[index])
+                        })
+                    }
+                }
+                .overlay {
+                    if items.isEmpty {
+                        Text("👏🏿 You have nothing to do! 🎉")
                     }
                 }
             }
